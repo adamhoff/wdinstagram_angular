@@ -21,7 +21,11 @@ angular
     "EntryFactory",
     "$stateParams",
     EntryShowControllerFunction
-  ]);
+  ])
+  .controller("EntryNewController", [
+    "EntryFactory",
+    EntryNewControllerFunction
+  ])
 
 function FactoryFunction($resource) {
   return $resource("http://localhost:3000/entries/:id", {})
@@ -35,6 +39,12 @@ function RouterFunction($stateProvider) {
       controller: "EntryIndexController",
       controllerAs: "vm"
     })
+    .state("entryNew", {
+      url: "/entries/new",
+      templateUrl: "js/ng-views/new.html",
+      controller: "EntryNewController",
+      controllerAs: "vm"
+    })
     .state("entryShow", {
       url: "/entries/:id",
       templateUrl: "js/ng-views/show.html",
@@ -45,6 +55,13 @@ function RouterFunction($stateProvider) {
 
 function EntryIndexControllerFunction(EntryFactory) {
   this.entries = EntryFactory.query();
+}
+
+function EntryNewControllerFunction(EntryFactory, $stateParams) {
+  this.entry = new EntryFactory();
+  this.create = function() {
+    this.entry.$save()
+  }
 }
 
 function EntryShowControllerFunction(EntryFactory, $stateParams) {
