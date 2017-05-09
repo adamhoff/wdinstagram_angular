@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Angular</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
-    <base href="/" />
+<html ng-app="Entry">
 
-    <script src="js/app.js"></script>
-  </head>
-  <body>
-  </body>
+<head>
+  <title>Angular</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
+
+  <script type="text/javascript">
+    var entries = [{
+        photo_url: "https://s-media-cache-ak0.pinimg.com/236x/a6/8f/8a/a68f8a971fe47fc84ed599a3fd33229b.jpg",
+        author: "Chris Pratt",
+        body: "Put yourself out there!",
+      },
+      {
+        photo_url: "http://www.slate.com/content/dam/slate/blogs/business_insider/2015/09/25/facebook_ceo_mark_zuckerberg_spoke_only_mandarin_with_chinese_president/487457943-facebook-ceo-mark-zuckerberg-delivers-the-opening.jpg.CROP.promovar-mediumlarge.jpg",
+        author: "Mark Zuckerberg",
+        body: "Everyone deserves equal access!",
+      }
+    ]
+  </script>
+  <script src="js/app.js"></script>
+
+  <base href="/" />
+  <a data-ui-sref="entryIndex">Entries Index</a>
+  <div data-ui-view></div>
+</head>
+
+<body>
+</body>
+
 </html>
