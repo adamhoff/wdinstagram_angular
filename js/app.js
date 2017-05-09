@@ -1,23 +1,31 @@
 "use strict";
 
-
-
-
 angular
   .module("Entry", [
-    "ui.router"
+    "ui.router",
+    "ngResource"
   ])
   .config([
     "$stateProvider",
     RouterFunction
   ])
+  .factory("EntryFactory", [
+    "$resource",
+    FactoryFunction
+  ])
   .controller("EntryIndexController", [
+    "EntryFactory",
     EntryIndexControllerFunction
   ])
   .controller("EntryShowController", [
+    "EntryFactory",
     "$stateParams",
     EntryShowControllerFunction
   ]);
+
+function FactoryFunction($resource) {
+  return $resource("http://localhost:3000/entries/:id", {})
+}
 
 function RouterFunction($stateProvider) {
   $stateProvider
@@ -35,10 +43,12 @@ function RouterFunction($stateProvider) {
     })
 }
 
-function EntryIndexControllerFunction() {
-  this.entries = entries;
+function EntryIndexControllerFunction(EntryFactory) {
+  this.entries = EntryFactory.query();
 }
 
-function EntryShowControllerFunction($stateParams) {
-  this.entry = entries[$stateParams.id];
+function EntryShowControllerFunction(EntryFactory, $stateParams) {
+  this.entry = EntryFactory.get({
+    id: $stateParams.id
+  })
 }
