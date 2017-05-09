@@ -26,9 +26,18 @@ angular
     "EntryFactory",
     EntryNewControllerFunction
   ])
+  .controller("EntryEditController", [
+    "EntryFactory",
+    "$stateParams",
+    EntryEditControllerFunction
+  ])
 
 function FactoryFunction($resource) {
-  return $resource("http://localhost:3000/entries/:id", {})
+  return $resource("http://localhost:3000/entries/:id", {}, {
+    update: {
+      method: "PUT"
+    }
+  })
 }
 
 function RouterFunction($stateProvider) {
@@ -51,6 +60,12 @@ function RouterFunction($stateProvider) {
       controller: "EntryShowController",
       controllerAs: "vm"
     })
+    .state("entryEdit", {
+      url: "/enetries/:id/edit",
+      templateUrl: "js/ng-views/edit.html",
+      controller: "EntryEditController",
+      controllerAs: "vm"
+    })
 }
 
 function EntryIndexControllerFunction(EntryFactory) {
@@ -61,6 +76,22 @@ function EntryNewControllerFunction(EntryFactory, $stateParams) {
   this.entry = new EntryFactory();
   this.create = function() {
     this.entry.$save()
+  }
+}
+
+function EntryEditControllerFunction(EntryFactory, $stateParams) {
+  this.entry = EntryFactory.get({
+    id: $stateParams.id
+  })
+  this.update = function() {
+    this.entry.$update({
+      id: $stateParams.id
+    })
+  }
+  this.destroy = function() {
+    this.entry.$delete({
+      id: $stateParams.id
+    })
   }
 }
 

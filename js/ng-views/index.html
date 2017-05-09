@@ -4,4 +4,5 @@
 
 <div data-ng-repeat="entry in vm.entries">
   <p><a data-ui-sref="entryShow({id: entry.id})">{{entry.body}}</a></p>
+  <a data-ui-sref="entryEdit({id: entry.id})">Edit</a>
 </div>
